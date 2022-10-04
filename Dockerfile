@@ -17,11 +17,10 @@ RUN addgroup --gid "${GID}" "${GNAME}" \
     && adduser --disabled-password -gid "${GID}" --uid "${UID}" -shell "/bin/bash" "${UNAME}" \
     && echo "${UNAME} ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers 
 
-RUN git clone https://github.com/mwyerman/neovim-configs.git /home/dev/.config/nvim && chown -R dev:dev /home/dev/.config/nvim
-COPY --chown=dev neovim-configs/lua /home/dev/.config/nvim/lua
-
 
 USER dev
+
+RUN git clone https://github.com/mwyerman/neovim-configs.git /home/dev/.config/nvim
 
 RUN cd /home/dev && LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[0-35.]+') \
     && curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz" \

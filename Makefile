@@ -8,4 +8,4 @@ run:
 	docker run -it --rm mwyerman:devenv
 
 edit:
-	docker run -it --rm --mount type=bind,source="$(CURDIR)/neovim-configs",target="/home/dev/.config/nvim" --workdir /home/dev/.config/nvim mwyerman:devenv
+	docker start -i nvimconfedit 2>/dev/null || docker run --name nvimconfedit -it --workdir /home/dev/.config/nvim mwyerman:devenv 2>/dev/null
